@@ -18,5 +18,5 @@ while len(queue) > 0:
 print('<', end='')
 for n in result[:-1]:
     print(n, end=', ')
-print(result[-1], end='')
-print('>')
+print(result[-1], end='>')
+print('')

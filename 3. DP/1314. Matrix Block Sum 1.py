@@ -1,13 +1,6 @@
 from typing import List
 
 
-# 33% Faster than Python's Built-in MAX Function
-def fmax(x, y): return x if x > y else y
-# Idem for MIN Function
-def fmin(x, y): return x if x < y else y
-def inizero(r, c): return [[0]*c for _ in range(r)]
-
-
 class Solution:
     def matrixBlockSum(self, mat: List[List[int]], K: int):
         row, column = len(mat), len(mat[0])

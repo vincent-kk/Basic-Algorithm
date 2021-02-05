@@ -1,4 +1,4 @@
-from functools import lru_cache
+from functools import cache
 
 
 class Solution:
@@ -13,7 +13,7 @@ class Solution:
             '8': ['t', 'u', 'v'],
             '9': ['w', 'x', 'y', 'z'], }
 
-        @lru_cache(maxsize=None)
+        @cache
         def combination(data):
             if len(data) == 0:
                 return []

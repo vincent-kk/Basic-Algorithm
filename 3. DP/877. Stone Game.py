@@ -3,32 +3,32 @@ from typing import List
 
 class Solution:
     def stoneGame(self, piles: List[int]):
+        length = len(piles)
+        memo = [[-1]*length for _ in range(length)]
 
-        mat = [[-1]*len(piles) for _ in range(len(piles))]
-
-        def dp(i, j, player):
-            if i == j:
+        def dp(start, end, player):
+            if start == end:
                 if player % 2 == 0:
-                    return piles[i]
+                    return piles[start]
                 else:
                     return 0
 
-            if i < 0 or i >= len(piles) or j < 0 or j >= len(piles) or i > j:
+            if start < 0 or end >= length or start > end:
                 return 0
 
-            if mat[i][j] != -1:
-                return mat[i][j]
+            if memo[start][end] != -1:
+                return memo[start][end]
 
-            first = piles[i]+dp(i+1, j, player+1)
-            second = piles[j]+dp(i, j-1, player+1)
-            mat[i][j] = max(first, second)
-            return mat[i][j]
+            first = piles[start]+dp(start+1, end, player+1)
+            second = piles[end]+dp(start, end-1, player+1)
+            memo[start][end] = max(first, second)
+            return memo[start][end]
 
-        return dp(0, len(piles)-1, 0) > sum(piles)//2
+        return dp(0, length-1, 0) > sum(piles)//2
 
 
 s = Solution()
-i = [5, 3, 4, 5]
+i = [5, 6, 4, 5, 1]
 o = s.stoneGame(i)
 
 print(o)

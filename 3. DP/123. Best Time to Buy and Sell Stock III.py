@@ -1,28 +1,28 @@
+from dataclasses import dataclass
 from typing import List
 
 
+@dataclass
+class Transaction:
+    cost: int = float("inf")
+    profit: int = 0
+
+
 class Solution:
-    def maxProfit(self, prices: List[int]):  # -> int:
-        length = len(prices)
-        differential = [0]*length
-        diff_sum = [0]*length
-        for i in range(1, length):
-            differential[i] = prices[i]-prices[i-1]
-            diff_sum[i] = diff_sum[i-1] + differential[i]
+    def maxProfit(self, prices: List[int]):
 
-        def findMaximumSubArray(start, end):
-            subarray_start = start
-            subarray_end = end
-            subarray_max = 0
-            # for i in range(start, end):
+        first, second = Transaction(), Transaction()
 
-        return differential, diff_sum
+        for price in prices:
+            first.cost = min(first.cost, price)
+            first.profit = max(first.profit, price - first.cost)
+            second.cost = min(second.cost, price - first.profit)
+            second.profit = max(second.profit, price - second.cost)
+
+        return second.profit
 
 
 s = Solution()
-
-i = [7, 1, 5, 3, 6, 4]
-
+i = [3, 3, 5, 0, 0, 3, 1, 4]
 o = s.maxProfit(i)
-
 print(o)

@@ -1,12 +1,8 @@
-from functools import cache
-
-
 class Solution:
     def countSubstrings(self, s: str):
         length = len(s) - 1
         conter = 0
 
-        @cache
         def compair(i, j):
             if i < 0 or i > length:
                 return False

@@ -7,27 +7,26 @@ class ListNode:
 
 class Solution:
     def removeNthFromEnd(self, head: ListNode, n: int):
-        this_node = head
-        prev_this = head
+        array_list = []
+        node = head
 
-        target_node = head
-        prev_target = head
+        while node != None:
+            array_list.append(node)
+            node = node.next
 
-        loop_index = 0
-
-        while this_node.next != None:
-            this_node = this_node.next
-            prev_this = this_node
-
-            if loop_index == n:
-                target_node = this_node
-                prev_target = prev_this
-            elif loop_index > n:
-                target_node = target_node.next
-                prev_target = target_node
-            loop_index += 1
-
-        prev_target.next = target_node.next
+        length = len(array_list)
+        target = length - n
+        if n == 1:
+            if length > 1:
+                array_list[-2].next = None
+            else:
+                head = None
+        elif target == 0:
+            head = head.next
+        else:
+            prev_node = array_list[target - 1]
+            next_node = array_list[target + 1]
+            prev_node.next = next_node
 
         return head
 
@@ -46,7 +45,7 @@ while this.next != None:
     this = this.next
 print(this.val)
 
-o = s.removeNthFromEnd(a1, 2)
+o = s.removeNthFromEnd(a1, 1)
 
 this = o
 while this.next != None:

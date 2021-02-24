@@ -1,7 +1,6 @@
 import sys
+import heapq
 
-# import heapq
-from queue import PriorityQueue
 from operator import itemgetter
 
 input = sys.stdin.readline
@@ -11,21 +10,17 @@ N = int(input())
 timeTable = [list(map(int, input().split())) for _ in range(N)]
 timeTable.sort(key=itemgetter(0))
 
-classrooms = PriorityQueue()
-classrooms.put(timeTable[0][1])
-# heapq.heappush(classrooms, timeTable[0][1])
+classrooms = []
+heapq.heappush(classrooms, timeTable[0][1])
 
 for start, end in timeTable[1:]:
-    if classrooms.queue[0] > start:
-        classrooms.put(end)
-        # heapq.heappush(classrooms, end)
+    if classrooms[0] > start:
+        heapq.heappush(classrooms, end)
     else:
-        classrooms.get()
-        classrooms.put(end)
-        # heapq.heappop(classrooms)
-        # heapq.heappush(classrooms, end)
+        heapq.heappop(classrooms)
+        heapq.heappush(classrooms, end)
 
-print(len(classrooms.queue))
+print(len(classrooms))
 
 # classes = []
 

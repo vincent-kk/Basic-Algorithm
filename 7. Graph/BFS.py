@@ -22,26 +22,6 @@ def bfs(nodes, edges, start):
     print(path)
 
 
-def bfs2(nodes, edges, start):
-    size = len(nodes)
-    checks = [False] * size
-    path = []
-
-    # init dfs
-    checks[start] = True
-    path.append(start)
-
-    def bfs_re(this):
-        for n in range(len(edges[this])):
-            if not checks[edges[this][n]]:
-
-                bfs_re(edges[this][n])
-
-    # do dfs
-    bfs_re(start)
-    print(path)
-
-
 nodes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 edges = [
     [1, 3, 7, 8],

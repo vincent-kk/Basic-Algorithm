@@ -14,10 +14,11 @@ def solution(N: int, K: int, tasks: List):
         if tasks[i] in plusboard:
             continue
         if len(plusboard) == N:
+            sub_tasks = tasks[i:]
             target = plusboard[0]
-            target_index = tasks[i:].index(target) if (target in tasks[i:]) else K + 1
+            target_index = sub_tasks.index(target) if (target in sub_tasks) else K + 1
             for plug in plusboard:
-                plug_index = tasks[i:].index(plug) if (plug in tasks[i:]) else K + 1
+                plug_index = sub_tasks.index(plug) if (plug in sub_tasks) else K + 1
                 if plug_index > K:
                     target = plug
                     break

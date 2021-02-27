@@ -11,7 +11,7 @@ def solution(N: int, histogram: List):
             return histogram[start] * histogram[start]
         mid = (start + end) // 2
         local_max = max(findMaximum(start, mid), findMaximum(mid, end))
-        left, right = mid - 1, mid + 1
+        left = right = mid
 
         while right - left < end - start:
 

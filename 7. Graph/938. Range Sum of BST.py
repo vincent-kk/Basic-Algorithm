@@ -10,15 +10,25 @@ class TreeNode:
 
 class Solution:
     def rangeSumBST(self, root: TreeNode, low: int, high: int):
-        indorder = []
-        Solution.inorder(root, indorder)
-        total_sum = 0
+        self.total = 0
 
-        for val in indorder:
-            if val >= low and val <= high:
-                total_sum += val
+        def traveling(node: TreeNode):
+            if not node:
+                return
 
-        return total_sum
+            if node.val >= low and node.val <= high:
+                self.total += node.val
+            if node.val < low:
+                traveling(node.right)
+            elif node.val > high:
+                traveling(node.left)
+            else:
+                traveling(node.left)
+                traveling(node.right)
+
+        traveling(root)
+
+        return self.total
 
     def makeTree(self, input):
         input = [None] + input

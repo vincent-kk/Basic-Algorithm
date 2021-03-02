@@ -1,5 +1,4 @@
 # Definition for a binary tree node.
-import operator
 
 
 class TreeNode:
@@ -11,43 +10,17 @@ class TreeNode:
 
 class Solution:
     def mergeTrees(self, root1: TreeNode, root2: TreeNode):
-        def bfs(root: TreeNode):
-            if not root:
-                return []
-            queue = [root]
-            tree = []
-            while len(queue) > 0:
-                node = queue.pop(0)
-                tree.append(node.val)
+        def merging(augend: TreeNode, addend: TreeNode):
+            if not augend:
+                return addend
+            if not addend:
+                return augend
+            augend.val = augend.val + addend.val
+            augend.left = merging(augend.left, addend.left)
+            augend.right = merging(augend.right, addend.right)
+            return augend
 
-                if node.left:
-                    queue.append(node.left)
-                else:
-                    if node.right:
-                        queue.append(TreeNode(None))
-
-                if node.right:
-                    queue.append(node.right)
-                else:
-                    if node.left:
-                        queue.append(TreeNode(None))
-            return tree
-
-        tree1 = bfs(root1)
-        tree2 = bfs(root2)
-        size1 = len(tree1)
-        size2 = len(tree2)
-        maxsize = max(size1, size2)
-
-        tree3 = [None] * maxsize
-        for i in range(maxsize):
-            node1 = tree1[i] if (i < size1) else None
-            node2 = tree2[i] if (i < size2) else None
-            if node1 == None and node2 == None:
-                continue
-            tree3[i] = (0 if not node1 else node1) + (0 if not node2 else node2)
-        print(tree3)
-        # return self.makeTree(tree3)
+        return merging(root1, root2)
 
     def makeTree(self, input):
         input = [None] + input
@@ -60,8 +33,28 @@ class Solution:
 
         return makeNode(1)
 
+    @staticmethod
+    def bfs(root: TreeNode):
+        queue = [root]
+        path = []
+        while len(queue) > 0:
+            node = queue.pop(0)
+            path.append(node.val)
+            if node.left:
+                queue.append(node.left)
+            if not node.left and node.right:
+                queue.append(TreeNode(None))
+            if node.right:
+                queue.append(node.right)
+
+        return path
+
 
 s = Solution()
-i1, i2 = [1, 2, None, 3], [1, None, 2, None, 3]
+i1, i2 = [1, 3, 2, 5], [2, 1, 3, None, 4, None, 7]
 r1, r2 = s.makeTree(i1), s.makeTree(i2)
 o = s.mergeTrees(r1, r2)
+array = Solution.bfs(o)
+for e in array[:-1]:
+    print(e, end=">")
+print(array[-1])

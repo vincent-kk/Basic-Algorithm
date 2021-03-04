@@ -8,7 +8,7 @@ class Solution:
 
         for num in nums[1:]:
             local_max = num if (prev_max + num < num) else prev_max + num
-            global_max = max(global_max, local_max)
+            global_max = local_max if (local_max > global_max) else global_max
             prev_max = local_max
         return global_max
 

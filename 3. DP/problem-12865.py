@@ -8,20 +8,11 @@ def solution(N: int, W: int, items: List[Tuple[int]]):
     __cache__ = [0] * (W + 1)
 
     for w, v in items:
-        if w < W:
-            if w in __cache__:
-                __cache__[w] = max(__cache__[w], v)
-            else:
-                __cache__[w] = v
-
-    for limit in range(1, W + 1):
-        local_max = 0
-        for w, v in items:
+        prev_state = __cache__[:]
+        for limit in range(1, W + 1):
             if limit < w:
                 continue
-            local_max = max(local_max, __cache__[limit - w] + v)
-
-        __cache__[limit] = local_max
+            __cache__[limit] = max(prev_state[limit], prev_state[limit - w] + v)
 
     return __cache__[W]
 

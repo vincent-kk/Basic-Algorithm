@@ -6,9 +6,6 @@ input = sys.stdin.readline
 
 
 def solution(target: str, words: List[str]):
-    if target == "":
-        return target in words
-
     @cache
     def run(s):
         if s == "":

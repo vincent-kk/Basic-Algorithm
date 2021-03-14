@@ -5,29 +5,30 @@ input = sys.stdin.readline
 
 
 def solution(N: int, M: int, tasks: List[int]):
-    high = sum(tasks)
-    low = high // M
-
-    while high > low + 1:
+    low, high = max(tasks), sum(tasks)
+    optimal = high
+    # #2. 반복 조건에 high >= low 로 되어있는 것이 어떤 의미가 있는가?
+    while high >= low:
         pivot = (low + high) // 2
 
         free = pivot
         disks = 1
         for task in tasks:
-            free -= task
-            if free < 0:
-                disks += 1
+            if free - task >= 0:
+                free -= task
+            else:
                 free = pivot - task
-            if free == 0:
                 disks += 1
-                free = pivot
 
+        # #2. pivot을 포함하지 않는다?
         if disks > M:
-            low = pivot
+            low = pivot + 1
         else:
-            high = pivot
+            high = pivot - 1
+            # #1. optimal이라는 것이 최저를 계속 갱신하는 역할을 한다.
+            optimal = pivot if pivot < optimal else optimal
 
-    return (low + high) // 2
+    return optimal
 
 
 """

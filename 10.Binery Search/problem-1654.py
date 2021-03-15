@@ -11,9 +11,11 @@ def solution(N: int, M: int, lans: List[int]):
     while high > low + 1:
         pivot = (low + high) // 2
 
-        lines = 0
-        for lan in lans:
-            lines += lan // pivot
+        # lines = 0
+        # for lan in lans:
+        #     lines += lan // pivot
+
+        lines = sum([x // pivot for x in lans])
 
         if lines < M:
             high = pivot
@@ -25,6 +27,6 @@ def solution(N: int, M: int, lans: List[int]):
 
 if __name__ == "__main__":
     N, M = map(int, input().split())
-    lans = [int(input()) for _ in range(N)]
+    lans = list(map(int, sys.stdin.readlines()))
 
     print(solution(N, M, lans))

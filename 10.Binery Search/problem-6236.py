@@ -32,4 +32,5 @@ def solution(N: int, M: int, budgets: List[int]):
 if __name__ == "__main__":
     N, M = map(int, input().split())
     budgets = [int(input()) for _ in range(N)]
+
     print(solution(N, M, budgets))

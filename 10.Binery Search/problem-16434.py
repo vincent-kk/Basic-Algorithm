@@ -10,17 +10,16 @@ def solution(N: int, hAtk: int, dongeon: List[List[int]]):
 
     optimal = high
 
-    while high > low + 1:
+    while high > low:
         pivot = (high + low) // 2
         life = pivot
         atk = hAtk
         for type, dAtk, dHp in dongeon:
             if type == 1:
-                while dHp > 0:
-                    dHp -= atk
-                    if dHp <= 0:
-                        break
-                    life -= dAtk
+                turn = dHp // atk
+                if dHp % atk == 0:
+                    turn -= 1
+                life -= turn * dAtk
                 if life <= 0:
                     break
             else:

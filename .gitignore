@@ -126,3 +126,5 @@ dmypy.json
 
 .vscode/
 .vscode/settings.json
+
+0.*

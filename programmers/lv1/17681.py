@@ -19,9 +19,9 @@ def solution(n: int, arr1: List[int], arr2: List[int]):
     """
     answer = []
     for i in range(n):
-        row1 = bin(arr1[i])[2:]
+        row1 = format(arr1[i], "b")  # bin(arr1[i])[2:]
         row1 = list(map(int, row1.zfill(n)))
-        row2 = bin(arr2[i])[2:]
+        row2 = format(arr2[i], "b")  # bin(arr2[i])[2:]
         row2 = list(map(int, row2.zfill(n)))
         row = []
         for b1, b2 in zip(row1, row2):

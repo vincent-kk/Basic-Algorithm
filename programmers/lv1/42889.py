@@ -25,7 +25,8 @@ def solution(N: int, stages: List[int]):
     for s in stages:
         user_in_stage[s] += 1
     accumulate = 0
-    for s in set(stages):
+    l = sorted(list(set(stages)), reverse=True)
+    for s in l:
         accumulate += user_in_stage[s]
         user_reach_stage[s] = accumulate
     answer = []
@@ -36,7 +37,7 @@ def solution(N: int, stages: List[int]):
         else:
             answer.append((i, user_in_stage[i] / user_reach_stage[i]))
 
-    return answer
+    return sorted(answer, key=lambda x: -x[1])
 
 
 if __name__ == "__main__":

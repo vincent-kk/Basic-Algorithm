@@ -9,7 +9,6 @@ def solution(new_id: str):
 
     temp = remove.findall(id)
     id = "".join(temp)
-
     id = re.sub(r"[.]+", ".", id)
     id = re.sub(r"^[.]|[.]$", "", id)
     id = "a" if len(id) == 0 else id

@@ -18,26 +18,38 @@ def solution(N: int, stages: List[int]):
         List[int] : 실패율이 높은 스테이지부터 내림차순 정렬된 스테이지
     """
 
-    user_in_stage = defaultdict(int)
-    user_reach_stage = defaultdict(int)
-    stages.sort(reverse=True)
+    # user_in_stage = defaultdict(int)
+    # user_reach_stage = defaultdict(int)
+    # stages.sort(reverse=True)
 
-    for s in stages:
-        user_in_stage[s] += 1
-    accumulate = 0
-    l = sorted(list(set(stages)), reverse=True)
-    for s in l:
-        accumulate += user_in_stage[s]
-        user_reach_stage[s] = accumulate
-    answer = []
+    # for s in stages:
+    #     user_in_stage[s] += 1
+    # accumulate = 0
+    # l = sorted(list(set(stages)), reverse=True)
+    # for s in l:
+    #     accumulate += user_in_stage[s]
+    #     user_reach_stage[s] = accumulate
+    # answer = []
 
-    for i in range(1, N + 1):
-        if i not in user_in_stage or i not in user_reach_stage:
-            answer.append((i, 0))
+    # for i in range(1, N + 1):
+    #     if i not in user_in_stage or i not in user_reach_stage:
+    #         answer.append((i, 0))
+    #     else:
+    #         answer.append((i, user_in_stage[i] / user_reach_stage[i]))
+    # answer = sorted(answer, key=lambda x: x[1], reverse=True)
+    # return [stage[0] for stage in answer]
+
+    # 좀 더 직관적이고 간단한 코드. 이해해보자
+    result = {}
+    denominator = len(stages)
+    for stage in range(1, N + 1):
+        if denominator != 0:
+            count = stages.count(stage)
+            result[stage] = count / denominator
+            denominator -= count
         else:
-            answer.append((i, user_in_stage[i] / user_reach_stage[i]))
-
-    return sorted(answer, key=lambda x: -x[1])
+            result[stage] = 0
+    return sorted(result, key=lambda x: result[x], reverse=True)
 
 
 if __name__ == "__main__":

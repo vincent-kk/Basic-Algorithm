@@ -1,5 +1,4 @@
 from typing import List
-import re
 
 
 def solution(s: str) -> List[int]:
@@ -20,7 +19,7 @@ def solution(s: str) -> List[int]:
         for e in map(int, element.split(",")):
             if e not in answer:
                 answer.append(e)
-    return list(answer)
+    return answer
 
 
 if __name__ == "__main__":

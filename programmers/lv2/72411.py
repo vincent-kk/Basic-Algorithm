@@ -18,7 +18,7 @@ def solution(orders: List[str], courses: List[int]) -> List[str]:
         if m < 2:
             continue
         for course in filter(lambda x: c[x] == m, c.keys()):
-            answer.append(course)
+            answer.append("".join(course))
         answer.sort()
     return answer
 

@@ -17,8 +17,7 @@ def solution(brown: int, yellow: int) -> List[int]:
     area = brown + yellow
     b = (brown + 4) // 2
     dit = (b * b - 4 * area) ** (1 / 2)
-    x = int((b + dit) // 2)
-    return sorted([x, area // x], reverse=True)
+    return int((b + dit) // 2), int((b - dit) // 2)
 
 
 if __name__ == "__main__":

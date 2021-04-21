@@ -6,26 +6,42 @@ def solution(name: str):
     characters = dict(zip(ascii_uppercase, range(length)))
 
     name = [min(characters[ch], length - characters[ch]) for ch in name]
+    name_len = len(name)
+    move = 0
+    this = 0
+    while True:
+        move += name[this]
+        name[this] = 0
+        progress = this
+        progress_move = 0
 
-    progress_list = name[1:]
-    progress = name[0]
-    for i in range(len(progress_list)):
-        if sum(progress_list) == 0:
+        if not sum(name):
             break
-        progress += progress_list[i] + 1
-        progress_list[i] = 0
 
-    reverse_list = name[1:]
-    reverse = name[0]
-    for i in range(len(reverse_list) - 1, -1, -1):
-        if sum(reverse_list) == 0:
-            break
-        reverse += reverse_list[i] + 1
-        reverse_list[i] = 0
+        for i in range(1, name_len):
+            progress_move += 1
+            if name[(this + i) % name_len]:
+                progress = (this + i) % name_len
+                break
 
-    return min(progress, reverse)
+        reverse = this
+        reverse_move = 0
+        for i in range(name_len - 1, 0, -1):
+            reverse_move += 1
+            if name[(this + i) % name_len]:
+                reverse = (this + i) % name_len
+                break
+
+        if progress_move > reverse_move:
+            this = reverse
+            move += reverse_move
+        else:
+            this = progress
+            move += progress_move
+
+    return move
 
 
 if __name__ == "__main__":
-    n = "JAN"
+    n = "BABAAAAB"
     print(solution(n))

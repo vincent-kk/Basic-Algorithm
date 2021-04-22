@@ -1,32 +1,26 @@
 import re
-from collections import deque
+
+from itertools import permutations
 
 
 def solution(expression):
-    priorities = ["*-+", "*+-", "-*+", "-+*", "+-*", "+*-"]
+    priorities = list(permutations(["*", "+", "-"]))
     expression = re.split(r"([+]|[-]|[*])", expression)
 
     def calc(exp, priority):
-
-        new_exp = exp[:]
+        _exp = exp[:]
         for op in priority:
-            temp_exp = []
-            i = 0
-            while i < len(new_exp):
-                if new_exp[i] == op:
-                    x, y = int(temp_exp[-1]), int(new_exp[i + 1])
-                    if op == "*":
-                        temp_exp[-1] = str(x * y)
-                    if op == "-":
-                        temp_exp[-1] = str(x - y)
-                    if op == "+":
-                        temp_exp[-1] = str(x + y)
-                    i += 1
-                else:
-                    temp_exp.append(new_exp[i])
-                i += 1
-            new_exp = temp_exp
-        return int(new_exp[0])
+            while op in _exp:
+                i = _exp.index(op)
+                x, y = int(_exp[i - 1]), int(_exp[i + 1])
+                if op == "*":
+                    _exp[i - 1] = str(x * y)
+                if op == "-":
+                    _exp[i - 1] = str(x - y)
+                if op == "+":
+                    _exp[i - 1] = str(x + y)
+                _exp = _exp[:i] + _exp[i + 2 :]
+        return int(_exp[0])
 
     answer = -1
     for p in priorities:

@@ -1,33 +1,27 @@
-from typing import List
-from collections import Counter, defaultdict
 from itertools import combinations
 
 
-def solution(r: List[List[str]]) -> int:
-    row = len(r)
-    calumn = len(r[0])
-    relations = defaultdict(list)
-    r = zip(*r)
+def solution(relation):
+    n_row = len(relation)
+    n_col = len(relation[0])  # ->runtime error 우려되는 부분
 
-    for k, data in enumerate(r):
-        relations[k] = data
+    candidates = []
+    for i in range(1, n_col + 1):
+        candidates.extend(combinations(range(n_col), i))
 
-    answer = 0
-    candidates = set(relations.keys())
-    for i in range(1, calumn + 1):
-        if len(candidates) < i:
-            break
-        cases = combinations(candidates, i)
-        removed = set()
-        for case in cases:
-            keys = [tuple([relations[c][i] for c in case]) for i in range(row)]
-            count = Counter(keys)
-            if all([count[k] == 1 for k in count.keys()]):
-                answer += 1
-                removed |= set(case)
-        candidates -= removed
+    final = []
+    for keys in candidates:
+        tmp = [tuple([item[key] for key in keys]) for item in relation]
+        if len(set(tmp)) == n_row:
+            final.append(keys)
 
-    return answer
+    answer = set(final[:])
+    for i in range(len(final)):
+        for j in range(i + 1, len(final)):
+            if len(final[i]) == len(set(final[i]).intersection(set(final[j]))):
+                answer.discard(final[j])
+
+    return len(answer)
 
 
 if __name__ == "__main__":

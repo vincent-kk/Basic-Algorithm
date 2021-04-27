@@ -5,21 +5,17 @@ def solution(records: List[str]):
 
     logger = []
     id_name = dict()
+    message = {"Enter": "님이 들어왔습니다.", "Leave": "님이 나갔습니다."}
     for record in records:
         op, id, *name = record.split()
         if name:
             id_name[id] = name[0]
-        if op == "Enter":
-            msg = "님이 들어왔습니다."
-        if op == "Leave":
-            msg = "님이 나갔습니다."
-        if op == "Change":
-            continue
-        logger.append((id, msg))
+        if op in message:
+            logger.append((id, op))
     answer = []
     for log in logger:
         id, msg = log
-        answer.append(id_name[id] + msg)
+        answer.append(id_name[id] + message[msg])
     return answer
 
 

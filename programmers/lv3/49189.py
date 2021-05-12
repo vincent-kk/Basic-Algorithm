@@ -3,6 +3,8 @@ from collections import defaultdict, Counter
 import heapq
 
 
+# 하고나서 보니 bfs써도 됬을거 같긴 함
+# 아니, 간선 값이 1로 동일하니 bfs쓰는 문제가 맞는거 같은데...?
 def solution(n: int, e: List[List[int]]):
     edges = defaultdict(list)
     distances = defaultdict(lambda: n + 1)
